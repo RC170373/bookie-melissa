@@ -60,6 +60,14 @@ if errorlevel 1 (
 echo Node.js detecte!
 echo.
 
+REM Creer le fichier .env.local s'il n'existe pas
+if not exist ".env.local" (
+    echo Creation du fichier de configuration...
+    copy .env.local.example .env.local >nul
+    echo Fichier .env.local cree!
+    echo.
+)
+
 REM Installer les dependances
 echo Installation des dependances...
 echo.
