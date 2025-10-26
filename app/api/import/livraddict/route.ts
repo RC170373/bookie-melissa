@@ -191,7 +191,7 @@ function mapLivraddictBook(livraddictBook: any): any {
   const author = getField(['auteur', 'author', 'auteur(s)', 'auteurs', 'authors']);
 
   // Clean ISBN - avoid scientific notation
-  let isbn = getField(['isbn', 'isbn13', 'isbn10']);
+  let isbn: string | null = getField(['isbn', 'isbn13', 'isbn10']);
   if (isbn) {
     // Remove all non-digit characters except X (for ISBN-10)
     isbn = isbn.replace(/[^0-9X]/gi, '');

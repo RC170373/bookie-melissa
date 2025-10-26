@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
             book: {
               select: {
                 title: true,
-                authors: true,
+                author: true,
               },
             },
           },
@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
         data: {
           currentPage,
           totalReadingTime,
-          status: currentPage >= (userBook.book.pageCount || 0) ? 'read' : 'reading',
+          status: currentPage >= (userBook.book.pages || 0) ? 'read' : 'reading',
         },
       });
     }

@@ -44,6 +44,7 @@ interface GenreStats {
   genre: string
   count: number
   percentage: number
+  [key: string]: string | number
 }
 
 interface MonthlyStats {
@@ -322,7 +323,7 @@ export default function StatisticsPage() {
                     cx="50%"
                     cy="50%"
                     outerRadius={100}
-                    label={({ genre, percentage }) => `${genre} (${percentage.toFixed(0)}%)`}
+                    label={({ genre, percentage }: any) => `${genre} (${percentage.toFixed(0)}%)`}
                   >
                     {genreStats.map((entry, index) => (
                       <Cell

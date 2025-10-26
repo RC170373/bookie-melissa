@@ -17,8 +17,10 @@ interface UserBook {
   book: {
     id: string;
     title: string;
+    author: string;
     authors: string[];
     pageCount: number;
+    pages: number;
     genres: string[];
   };
   status: string;

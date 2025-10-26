@@ -110,13 +110,8 @@ export default function ListsPage() {
             >
               <div className="flex items-start justify-between mb-3">
                 <h3 className="text-lg font-semibold text-gray-900 flex-1">
-                  {list.title}
+                  {list.name}
                 </h3>
-                {list.is_public ? (
-                  <Globe className="h-5 w-5 text-green-600 shrink-0" />
-                ) : (
-                  <Lock className="h-5 w-5 text-gray-400 shrink-0" />
-                )}
               </div>
               
               {list.description && (
@@ -126,7 +121,7 @@ export default function ListsPage() {
               )}
               
               <p className="text-xs text-gray-500">
-                Par {list.profiles?.username || 'Anonyme'}
+                Par {list.user?.username || 'Anonyme'}
               </p>
             </Link>
           ))}

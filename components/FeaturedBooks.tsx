@@ -78,9 +78,9 @@ export function FeaturedBooks() {
               href={`/books/${book.id}`}
               className="flex space-x-3 hover:bg-gray-50 p-2 rounded transition"
             >
-              {book.cover_url ? (
+              {book.coverUrl ? (
                 <img
-                  src={book.cover_url}
+                  src={book.coverUrl}
                   alt={book.title}
                   className="w-12 h-16 object-cover rounded shadow-sm"
                 />
@@ -95,9 +95,9 @@ export function FeaturedBooks() {
                   {book.title}
                 </h4>
                 <p className="text-xs text-gray-600 truncate">{book.author}</p>
-                {book.genre && book.genre.length > 0 && (
+                {book.genres && (
                   <p className="text-xs text-indigo-600 mt-1">
-                    {book.genre[0]}
+                    {book.genres.split(',')[0]}
                   </p>
                 )}
               </div>

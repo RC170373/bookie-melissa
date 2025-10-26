@@ -36,17 +36,15 @@ export function exportLibraryToExcel(
     publication_year: userBook.books?.publication_year || undefined,
     pages: userBook.books?.pages || undefined,
     language: userBook.books?.language || undefined,
-    genres: Array.isArray(userBook.books?.genres)
-      ? userBook.books.genres.join('; ')
-      : userBook.books?.genres || undefined,
+    genres: (userBook.books as any)?.genres || undefined,
     status: userBook.status as 'reading' | 'read' | 'to_read' | 'wishlist' | 'pal',
     rating: userBook.rating || undefined,
-    notes: userBook.notes || undefined,
+    notes: (userBook as any).notes || undefined,
     date_added: userBook.created_at
       ? new Date(userBook.created_at).toLocaleDateString('fr-FR')
       : undefined,
-    date_read: userBook.date_read
-      ? new Date(userBook.date_read).toLocaleDateString('fr-FR')
+    date_read: (userBook as any).date_read
+      ? new Date((userBook as any).date_read).toLocaleDateString('fr-FR')
       : undefined,
   }))
 

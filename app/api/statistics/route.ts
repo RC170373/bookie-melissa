@@ -39,6 +39,8 @@ export async function GET(request: NextRequest) {
           select: {
             pages: true,
             genres: true,
+            author: true,
+            title: true,
           },
         },
       },
@@ -163,7 +165,7 @@ export async function GET(request: NextRequest) {
             genreRatingsMap.set(genre, { total: 0, count: 0 })
           }
           const genreData = genreRatingsMap.get(genre)!
-          genreData.total += ub.rating
+          genreData.total += ub.rating!
           genreData.count += 1
         })
       }

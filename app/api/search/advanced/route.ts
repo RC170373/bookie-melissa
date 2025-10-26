@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     if (author) {
       where.book = {
         ...where.book,
-        authors: { hasSome: [author] },
+        author: { contains: author, mode: 'insensitive' },
       };
     }
 
@@ -64,10 +64,10 @@ export async function GET(request: NextRequest) {
     if (minPages || maxPages) {
       where.book = {
         ...where.book,
-        pageCount: {},
+        pages: {},
       };
-      if (minPages) where.book.pageCount.gte = parseInt(minPages);
-      if (maxPages) where.book.pageCount.lte = parseInt(maxPages);
+      if (minPages) where.book.pages.gte = parseInt(minPages);
+      if (maxPages) where.book.pages.lte = parseInt(maxPages);
     }
 
     const userBooks = await prisma.userBook.findMany({
@@ -81,10 +81,10 @@ export async function GET(request: NextRequest) {
     const results = userBooks.map(ub => ({
       id: ub.book.id,
       title: ub.book.title,
-      authors: ub.book.authors,
+      author: ub.book.author,
       rating: ub.rating,
       status: ub.status,
-      pageCount: ub.book.pageCount,
+      pages: ub.book.pages,
     }));
 
     return NextResponse.json({ results });
