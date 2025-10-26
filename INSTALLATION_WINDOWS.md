@@ -12,7 +12,7 @@ Bonjour Melissa! Voici comment installer Bookie sur ton PC Windows.
 2. Clique sur le gros bouton vert **"Download Node.js (LTS)"**
 3. Une fois téléchargé, double-clique sur le fichier `.msi`
 4. Suis l'installation (clique sur "Next" partout, garde les options par défaut)
-5. Redémarre ton PC après l'installation
+5. **REDÉMARRE TON PC** après l'installation
 
 ---
 
@@ -26,22 +26,14 @@ Bonjour Melissa! Voici comment installer Bookie sur ton PC Windows.
 
 ---
 
-## ✅ Étape 3: Installer Bookie
+## ✅ Étape 3: Lancer Bookie
 
 1. Ouvre le dossier où tu as extrait Bookie (par exemple: `C:\Bookie\bookie-melissa-main`)
-2. Double-clique sur le fichier **`INSTALLER.bat`**
-3. Une fenêtre noire s'ouvre et installe tout automatiquement
-4. **ATTENDS 2-3 MINUTES** (c'est normal que ça prenne du temps!)
-5. Quand tu vois "Installation terminée!", appuie sur une touche pour fermer
-
----
-
-## ✅ Étape 4: Lancer Bookie
-
-1. Dans le même dossier, double-clique sur **`LANCER-BOOKIE.bat`**
-2. Une fenêtre noire s'ouvre (ne la ferme pas!)
-3. Attends 10-20 secondes
-4. Ton navigateur s'ouvre automatiquement sur Bookie!
+2. Double-clique sur le fichier **`BOOKIE.bat`**
+3. Un menu s'affiche avec 3 options
+4. **LA PREMIÈRE FOIS:** Tape `1` puis Entrée pour installer (attends 2-3 minutes)
+5. **ENSUITE:** Tape `2` puis Entrée pour lancer Bookie
+6. Ton navigateur s'ouvre automatiquement!
 
 **Identifiants:**
 - Email: `melissadelageclairin@gmail.com`

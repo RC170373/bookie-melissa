@@ -20,7 +20,7 @@ Tous tes **1668 livres** sont déjà importés avec:
 
 ## 🚀 Comment installer Bookie sur ton PC Windows
 
-C'est très simple, il y a 4 étapes:
+C'est SUPER SIMPLE, il y a 3 étapes:
 
 ### **Étape 1: Installer Node.js** (5 minutes)
 
@@ -40,22 +40,14 @@ C'est très simple, il y a 4 étapes:
 
 ---
 
-### **Étape 3: Installer Bookie** (3 minutes)
+### **Étape 3: Lancer Bookie** (3 minutes)
 
 1. Ouvre le dossier où tu as extrait Bookie (par exemple: `C:\Bookie\bookie-melissa-main`)
-2. Double-clique sur le fichier **`INSTALLER.bat`**
-3. Une fenêtre noire s'ouvre et installe tout automatiquement
-4. **ATTENDS 2-3 MINUTES** (c'est normal que ça prenne du temps!)
-5. Quand tu vois "Installation terminée!", appuie sur une touche pour fermer
-
----
-
-### **Étape 4: Lancer Bookie** (30 secondes)
-
-1. Dans le même dossier, double-clique sur **`LANCER-BOOKIE.bat`**
-2. Une fenêtre noire s'ouvre (**ne la ferme pas!**)
-3. Attends 10-20 secondes
-4. Ton navigateur s'ouvre automatiquement sur Bookie!
+2. Double-clique sur le fichier **`BOOKIE.bat`**
+3. Un menu s'affiche avec 3 options
+4. **LA PREMIÈRE FOIS:** Tape `1` puis Entrée pour installer (attends 2-3 minutes)
+5. **ENSUITE:** Tape `2` puis Entrée pour lancer Bookie
+6. Ton navigateur s'ouvre automatiquement!
 
 **Tes identifiants:**
 - Email: `melissadelageclairin@gmail.com`
@@ -70,7 +62,7 @@ Tu as maintenant accès à tous tes livres!
 **Important:**
 - Ne ferme pas la fenêtre noire tant que tu utilises Bookie
 - Pour arrêter Bookie: ferme la fenêtre noire
-- Pour relancer Bookie: double-clique à nouveau sur `LANCER-BOOKIE.bat`
+- Pour relancer Bookie: double-clique à nouveau sur `BOOKIE.bat` et choisis option `2`
 
 ---
 
