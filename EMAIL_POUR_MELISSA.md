@@ -43,9 +43,9 @@ C'est très simple, il y a 4 étapes:
 ### **Étape 3: Créer les fichiers d'installation** (30 secondes)
 
 1. Ouvre le dossier où tu as extrait Bookie (par exemple: `C:\Bookie\bookie-melissa-main`)
-2. Double-clique sur le fichier **`create-windows-files.js`**
-3. Si Windows te demande "Comment voulez-vous ouvrir ce fichier?", choisis **"Node.js"**
-4. Une fenêtre s'ouvre et crée les fichiers automatiquement
+2. Double-clique sur le fichier **`CREER-FICHIERS-WINDOWS.bat`**
+3. Une fenêtre noire s'ouvre et crée les fichiers automatiquement
+4. Appuie sur une touche pour fermer la fenêtre
 
 ---
 

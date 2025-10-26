@@ -130,16 +130,44 @@ pause
 try {
   fs.writeFileSync('INSTALLER.bat', installerContent, 'utf8');
   console.log('✅ INSTALLER.bat créé!');
-  
+
   fs.writeFileSync('LANCER-BOOKIE.bat', lancerContent, 'utf8');
   console.log('✅ LANCER-BOOKIE.bat créé!');
-  
+
   console.log('\n🎉 Fichiers Windows créés avec succès!\n');
   console.log('Vous pouvez maintenant:');
   console.log('1. Double-cliquer sur INSTALLER.bat pour installer');
   console.log('2. Double-cliquer sur LANCER-BOOKIE.bat pour lancer Bookie\n');
+  console.log('\n⚠️  Appuyez sur une touche pour fermer cette fenêtre...');
+
+  // Keep window open on Windows
+  if (process.platform === 'win32') {
+    const readline = require('readline');
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+    rl.question('', () => {
+      rl.close();
+      process.exit(0);
+    });
+  }
 } catch (error) {
   console.error('❌ Erreur:', error.message);
-  process.exit(1);
+  console.log('\n⚠️  Appuyez sur une touche pour fermer cette fenêtre...');
+
+  if (process.platform === 'win32') {
+    const readline = require('readline');
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+    rl.question('', () => {
+      rl.close();
+      process.exit(1);
+    });
+  } else {
+    process.exit(1);
+  }
 }
 

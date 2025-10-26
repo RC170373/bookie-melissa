@@ -29,10 +29,10 @@ Bonjour Melissa! Voici comment installer Bookie sur ton PC Windows.
 ## ✅ Étape 3: Créer les fichiers d'installation
 
 1. Ouvre le dossier où tu as extrait Bookie (par exemple: `C:\Bookie\bookie-melissa-main`)
-2. Double-clique sur le fichier **`create-windows-files.js`**
-3. Si Windows te demande "Comment voulez-vous ouvrir ce fichier?", choisis **"Node.js"**
-4. Une fenêtre s'ouvre et crée les fichiers automatiquement
-5. Tu devrais voir "✅ Fichiers Windows créés avec succès!"
+2. Double-clique sur le fichier **`CREER-FICHIERS-WINDOWS.bat`**
+3. Une fenêtre s'ouvre et crée les fichiers automatiquement
+4. Tu devrais voir "✅ FICHIERS CRÉÉS!"
+5. Appuie sur une touche pour fermer la fenêtre
 
 ---
 
