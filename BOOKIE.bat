@@ -1,8 +1,10 @@
 @echo off
+setlocal enabledelayedexpansion
 chcp 65001 >nul
 cls
 
 :MENU
+cls
 echo.
 echo ╔════════════════════════════════════════════════════════════╗
 echo ║                                                            ║
@@ -13,16 +15,21 @@ echo.
 echo.
 echo  Que voulez-vous faire?
 echo.
-echo  [1] Installer Bookie (première fois seulement)
+echo  [1] Installer Bookie (premiere fois seulement)
 echo  [2] Lancer Bookie
 echo  [3] Quitter
 echo.
 echo.
-set /p choice="Votre choix (1, 2 ou 3): "
+set /p choice=Votre choix (1, 2 ou 3):
+
+if not defined choice goto MENU
 
 if "%choice%"=="1" goto INSTALL
 if "%choice%"=="2" goto LAUNCH
 if "%choice%"=="3" goto END
+echo.
+echo Choix invalide! Tapez 1, 2 ou 3.
+timeout /t 2 /nobreak >nul
 goto MENU
 
 :INSTALL
@@ -151,5 +158,5 @@ echo.
 echo Au revoir! 👋
 echo.
 timeout /t 2 /nobreak >nul
-exit
+exit /b 0
 
