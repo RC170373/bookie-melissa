@@ -80,6 +80,18 @@ if errorlevel 1 (
     goto MENU
 )
 
+REM Generer Prisma Client
+echo.
+echo Generation de Prisma Client...
+call npx prisma generate
+if errorlevel 1 (
+    echo.
+    echo ERREUR lors de la generation de Prisma!
+    echo.
+    pause
+    goto MENU
+)
+
 echo.
 echo.
 echo ================================================================
