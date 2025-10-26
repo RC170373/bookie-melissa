@@ -1,0 +1,411 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String
+  username  String     @unique
+  fullName  String?
+  avatar    String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  profile           Profile?
+  userBooks         UserBook[]
+  reviews           Review[]
+  forumTopics       ForumTopic[]
+  forumPosts        ForumPost[]
+  lists             List[]
+  friendships       Friendship[] @relation("user")
+  friendedBy        Friendship[] @relation("friend")
+  activities        Activity[]
+  challenges        UserChallenge[]
+  readingStats      ReadingStats?
+  sagaProgress      UserSagaProgress[]
+  notifications     Notification[]
+  achievements      UserAchievement[]
+  readingEntries    ReadingEntry[]
+  bookNotes         BookNote[]
+  savedFilters      SavedFilter[]
+  writingProjects   WritingProject[]
+}
+
+model Profile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  bio       String?
+  location  String?
+  website   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Author {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  bio         String?
+  photoUrl    String?
+  birthDate   DateTime?
+  nationality String?
+  website     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  books Book[]
+}
+
+model Saga {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  totalBooks  Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  books         Book[]
+  userProgress  UserSagaProgress[]
+}
+
+model Book {
+  id                String   @id @default(cuid())
+  title             String
+  author            String
+  authorId          String?
+  isbn              String?
+  publisher         String?
+  publicationYear   Int?
+  pages             Int?
+  language          String?
+  genres            String?
+  description       String?
+  coverUrl          String?
+  sagaId            String?
+  sagaOrder         Int?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  authorDetail  Author?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  saga          Saga?     @relation(fields: [sagaId], references: [id], onDelete: SetNull)
+  userBooks     UserBook[]
+  reviews       Review[]
+  listItems     ListItem[]
+  activities    Activity[]
+}
+
+model UserSagaProgress {
+  id              String   @id @default(cuid())
+  userId          String
+  sagaId          String
+  booksRead       Int      @default(0)
+  currentBookId   String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  saga Saga @relation(fields: [sagaId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, sagaId])
+}
+
+model UserBook {
+  id              String   @id @default(cuid())
+  userId          String
+  bookId          String
+  status          String   @default("to_read") // reading, read, to_read, wishlist, pal
+  rating          Float?   // Note sur 20 avec décimale (ex: 15.5)
+  ratingAnswers   String?  // Réponses aux questions de notation (JSON)
+  ratingComments  String?  // Commentaires pour l'analyse BERT
+  aiRating        Float?   // Note générée par l'IA
+  manualOverride  Boolean  @default(false) // Si l'utilisateur a modifié manuellement
+  notes           String?
+  review          String?  // Critique complète de l'utilisateur
+  favoriteQuotes  String?  // Citations préférées (JSON array)
+  dateRead        DateTime?
+  plannedReadDate DateTime? // Date de lecture planifiée
+  currentPage     Int?     // Page actuelle pour le suivi de progression
+  totalReadingTime Int?    // Temps total de lecture en minutes
+  tags            String?  // Tags personnalisés (JSON array)
+  shelf           String?  // Étagère virtuelle
+  location        String?  // Localisation physique du livre
+  loanedTo        String?  // À qui le livre est prêté
+  loanDate        DateTime? // Date du prêt
+  isPrivate       Boolean  @default(false) // Livre privé
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book            Book              @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  readingEntries  ReadingEntry[]
+  bookNotes       BookNote[]
+
+  @@unique([userId, bookId])
+}
+
+model ReadingEntry {
+  id          String   @id @default(cuid())
+  userId      String
+  userBookId  String
+  date        DateTime @default(now())
+  pagesRead   Int      // Pages lues ce jour
+  timeSpent   Int      // Temps passé en minutes
+  mood        String?  // Humeur (emoji ou texte)
+  notes       String?  // Notes de la session
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userBook    UserBook @relation(fields: [userBookId], references: [id], onDelete: Cascade)
+}
+
+model BookNote {
+  id          String   @id @default(cuid())
+  userId      String
+  userBookId  String
+  type        String   // "note", "quote", "chapter", "annotation"
+  content     String
+  pageNumber  Int?
+  chapter     String?
+  tags        String?  // Tags (JSON array)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userBook    UserBook @relation(fields: [userBookId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  bookId    String
+  rating    Int
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
+}
+
+model ForumCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  description String?
+  createdAt DateTime @default(now())
+
+  topics ForumTopic[]
+}
+
+model ForumTopic {
+  id         String   @id @default(cuid())
+  categoryId String
+  userId     String
+  title      String
+  content    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  category ForumCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  posts    ForumPost[]
+}
+
+model ForumPost {
+  id        String   @id @default(cuid())
+  topicId   String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  topic ForumTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model List {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  description String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items ListItem[]
+}
+
+model ListItem {
+  id        String   @id @default(cuid())
+  listId    String
+  bookId    String
+  createdAt DateTime @default(now())
+
+  list List @relation(fields: [listId], references: [id], onDelete: Cascade)
+  book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@unique([listId, bookId])
+}
+
+model Friendship {
+  id        String   @id @default(cuid())
+  userId    String
+  friendId  String
+  status    String   @default("pending") // pending, accepted, blocked
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User @relation("user", fields: [userId], references: [id], onDelete: Cascade)
+  friend User @relation("friend", fields: [friendId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, friendId])
+}
+
+model Activity {
+  id             String   @id @default(cuid())
+  userId         String
+  bookId         String?
+  activityType   String   // book_added, book_rated, review_posted, etc
+  content        String?
+  createdAt      DateTime @default(now())
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book Book? @relation(fields: [bookId], references: [id], onDelete: SetNull)
+}
+
+model Challenge {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  type        String   // books_count, pages_count, genres, authors, custom
+  target      Int      // Target number (books, pages, etc.)
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userChallenges UserChallenge[]
+}
+
+model UserChallenge {
+  id          String   @id @default(cuid())
+  userId      String
+  challengeId String
+  progress    Int      @default(0)
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, challengeId])
+}
+
+model ReadingStats {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  totalBooksRead      Int      @default(0)
+  totalPagesRead      Int      @default(0)
+  totalReadingTime    Int      @default(0) // in minutes
+  averageRating       Float?
+  favoriteGenre       String?
+  booksThisYear       Int      @default(0)
+  booksThisMonth      Int      @default(0)
+  currentStreak       Int      @default(0) // days
+  longestStreak       Int      @default(0) // days
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id          String   @id @default(cuid())
+  userId      String
+  type        String   // upcoming_read, new_release, recommendation, achievement, reminder
+  title       String
+  message     String
+  bookId      String?
+  authorName  String?
+  link        String?
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  key         String   @unique // unique identifier like "first_book", "100_books", etc.
+  name        String
+  description String
+  icon        String   // emoji or icon name
+  category    String   // reading, streak, collection, speed, diversity
+  tier        String   // bronze, silver, gold, platinum
+  requirement Int      // number needed to unlock (e.g., 100 for "100 books")
+  points      Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  userAchievements UserAchievement[]
+}
+
+model UserAchievement {
+  id            String   @id @default(cuid())
+  userId        String
+  achievementId String
+  unlockedAt    DateTime @default(now())
+  progress      Int      @default(0) // current progress towards achievement
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+}
+
+// Filtres sauvegardés pour recherche avancée
+model SavedFilter {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  filters     String   // JSON des filtres
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Projets d'écriture
+model WritingProject {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String?
+  targetWords Int?
+  currentWords Int     @default(0)
+  status      String   @default("active") // active, completed, paused
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  entries     WritingEntry[]
+}
+
+model WritingEntry {
+  id        String   @id @default(cuid())
+  projectId String
+  date      DateTime @default(now())
+  words     Int
+  notes     String?
+
+  project WritingProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}

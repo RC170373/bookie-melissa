@@ -1,0 +1,16 @@
+{
+  "name": "bookie-scripts",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "fix-data": "tsx fix-all-data.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.7.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}
+

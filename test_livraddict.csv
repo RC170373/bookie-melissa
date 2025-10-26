@@ -1,0 +1,9 @@
+titre;auteur;isbn;editeur;annee;pages;genre;statut;note;date_lecture;critique;notes
+1984;George Orwell;978-0451524935;Penguin Books;1949;328;Science-fiction;lu;18;2024-01-15;Un chef-d'œuvre dystopique;Excellent livre
+Le Seigneur des Anneaux;J.R.R. Tolkien;978-2253045632;Le Livre de Poche;1954;1216;Fantasy;en cours;19;2024-02-20;Épique et immersif;À continuer
+Fondation;Isaac Asimov;978-0553293357;Bantam Books;1951;255;Science-fiction;lu;17;2024-03-10;Fascinant;Très bon
+Dune;Frank Herbert;978-0441172719;Ace Books;1965;688;Science-fiction;à lire;;;"À lire absolument";
+Le Hobbit;J.R.R. Tolkien;978-2253045625;Le Livre de Poche;1937;310;Fantasy;lu;18;2024-04-05;Aventure captivante;Parfait
+Neuromancien;William Gibson;978-0441569595;Ace Books;1984;271;Science-fiction;lu;16;2024-05-12;Cyberpunk révolutionnaire;Bon
+Ender's Game;Orson Scott Card;978-0812550702;Tor Books;1985;324;Science-fiction;lu;17;2024-06-01;Stratégie et émotion;Recommandé
+

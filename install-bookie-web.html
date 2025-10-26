@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installer Bookie - Installation en Un Clic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 20px 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .instructions h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .step {
+            display: flex;
+            align-items: start;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .step-description {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .code {
+            background: #2d3748;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            text-align: left;
+            overflow-x: auto;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning-title {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 5px;
+        }
+
+        .warning-text {
+            color: #856404;
+            font-size: 14px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .feature {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .feature-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .feature-description {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .progress {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading {
+            animation: pulse 1.5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">📚</div>
+        <h1>Bookie</h1>
+        <p class="subtitle">Votre bibliothèque personnelle - Installation en un clic</p>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">1671</div>
+                <div class="stat-label">Livres inclus</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Avec couvertures</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">494</div>
+                <div class="stat-label">Critiques</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">28</div>
+                <div class="stat-label">Pages fonctionnelles</div>
+            </div>
+        </div>
+
+        <a href="#" class="download-btn" id="downloadBtn" onclick="startDownload()">
+            <span>⬇️</span>
+            <span>Télécharger Bookie (ZIP)</span>
+        </a>
+
+        <div class="progress" id="progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill">0%</div>
+            </div>
+        </div>
+
+        <div class="warning">
+            <div class="warning-title">⚠️ Prérequis</div>
+            <div class="warning-text">
+                Node.js 18+ doit être installé. 
+                <a href="https://nodejs.org" target="_blank" style="color: #667eea; font-weight: bold;">Télécharger Node.js</a>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>📋 Instructions d'installation (Windows)</h2>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-title">Télécharger le fichier ZIP</div>
+                    <div class="step-description">Cliquez sur le bouton ci-dessus pour télécharger Bookie</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-title">Décompresser le fichier</div>
+                    <div class="step-description">Clic droit sur le fichier ZIP → "Extraire tout..."</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-title">Ouvrir PowerShell</div>
+                    <div class="step-description">Dans le dossier décompressé, clic droit → "Ouvrir dans PowerShell"</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <div class="step-title">Exécuter l'installation</div>
+                    <div class="step-description">Copiez et collez ces commandes dans PowerShell:</div>
+                    <div class="code">Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass<br>.\install-bookie.ps1</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <div class="step-title">Démarrer Bookie</div>
+                    <div class="step-description">Une fois l'installation terminée:</div>
+                    <div class="code">npm run dev</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <div class="step-title">Se connecter</div>
+                    <div class="step-description">
+                        Ouvrez <strong>http://localhost:3000</strong> dans votre navigateur<br>
+                        Email: <strong>melissadelageclairin@gmail.com</strong><br>
+                        Mot de passe: <strong>bookie</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📚</div>
+                <div class="feature-title">Bibliothèque complète</div>
+                <div class="feature-description">1671 livres avec couvertures</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">Statistiques enrichies</div>
+                <div class="feature-description">9 graphiques détaillés</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-title">Recherche avancée</div>
+                <div class="feature-description">Filtres multiples</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">Défis & Succès</div>
+                <div class="feature-description">Gamification de lecture</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startDownload() {
+            // Cette fonction sera remplacée par le vrai lien de téléchargement
+            alert('⚠️ Le fichier ZIP doit être hébergé sur un service cloud (Google Drive, Dropbox, etc.)\n\nVeuillez compresser le dossier Livraddict et l\'uploader sur un service cloud, puis remplacer ce lien.');
+            
+            // Exemple de ce que ça devrait être:
+            // window.location.href = 'https://drive.google.com/uc?export=download&id=VOTRE_ID_FICHIER';
+            
+            return false;
+        }
+    </script>
+</body>
+</html>
+

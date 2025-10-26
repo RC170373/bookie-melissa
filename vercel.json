@@ -1,0 +1,13 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install --legacy-peer-deps",
+  "framework": "nextjs",
+  "env": {
+    "DATABASE_URL": "file:./prisma/dev.db",
+    "JWT_SECRET": "your-super-secret-jwt-key-change-this-in-production-vercel",
+    "NEXT_PUBLIC_APP_URL": "https://bookie.vercel.app",
+    "GOOGLE_BOOKS_API_KEY": "AIzaSyDMFWV7Ohdfw0sAZ7rnYPGCTPcUtkz08Ps"
+  }
+}
+
