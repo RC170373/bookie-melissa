@@ -109,19 +109,19 @@ export async function POST(request: NextRequest) {
 
         // Parse genres from bookshelves
         const genres = goodreadsBook.Bookshelves
-          ? goodreadsBook.Bookshelves.split(',').map(g => g.trim()).filter(g => g)
-          : [];
+          ? goodreadsBook.Bookshelves.split(',').map(g => g.trim()).filter(g => g).join(', ')
+          : null;
 
         // Create or find book
         let book = await prisma.book.findFirst({
           where: {
             OR: [
               { isbn: goodreadsBook.ISBN || undefined },
-              { isbn13: goodreadsBook.ISBN13 || undefined },
+              { isbn: goodreadsBook.ISBN13 || undefined },
               {
                 AND: [
                   { title: goodreadsBook.Title },
-                  { authors: { has: goodreadsBook.Author } },
+                  { author: goodreadsBook.Author },
                 ],
               },
             ],
@@ -132,14 +132,13 @@ export async function POST(request: NextRequest) {
           book = await prisma.book.create({
             data: {
               title: goodreadsBook.Title,
-              authors: [goodreadsBook.Author],
-              isbn: goodreadsBook.ISBN || null,
-              isbn13: goodreadsBook.ISBN13 || null,
+              author: goodreadsBook.Author,
+              isbn: goodreadsBook.ISBN || goodreadsBook.ISBN13 || null,
               publisher: goodreadsBook.Publisher || null,
-              publishedDate: goodreadsBook['Year Published']
-                ? new Date(`${goodreadsBook['Year Published']}-01-01`)
+              publicationYear: goodreadsBook['Year Published']
+                ? parseInt(goodreadsBook['Year Published'])
                 : null,
-              pageCount: goodreadsBook['Number of Pages']
+              pages: goodreadsBook['Number of Pages']
                 ? parseInt(goodreadsBook['Number of Pages'])
                 : null,
               genres: genres,

@@ -19,6 +19,17 @@ interface GoogleBooksVolume {
   }
 }
 
+interface BookResult {
+  id: string
+  title: string
+  authors: string[]
+  publishedDate: string | null
+  description: string | null
+  pageCount: number | null
+  coverUrl: string | null
+  isbn: string | null
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -49,8 +60,8 @@ export async function GET(request: NextRequest) {
 
     // Transform the results and remove duplicates
     const seenIds = new Set<string>()
-    const books = data.items
-      .map((item: GoogleBooksVolume) => {
+    const books: BookResult[] = data.items
+      .map((item: GoogleBooksVolume): BookResult => {
         const volumeInfo = item.volumeInfo
 
         // Get ISBN
@@ -76,7 +87,7 @@ export async function GET(request: NextRequest) {
           isbn,
         }
       })
-      .filter((book) => {
+      .filter((book: BookResult) => {
         if (seenIds.has(book.id)) {
           return false
         }

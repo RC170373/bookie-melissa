@@ -35,21 +35,21 @@ export async function GET(request: NextRequest) {
       const line = [
         index + 1, // Book Id
         `"${book.title.replace(/"/g, '""')}"`, // Title
-        `"${book.authors.join(', ').replace(/"/g, '""')}"`, // Author
-        `"${book.authors.join(', ').replace(/"/g, '""')}"`, // Author l-f
+        `"${book.author.replace(/"/g, '""')}"`, // Author
+        `"${book.author.replace(/"/g, '""')}"`, // Author l-f
         '', // Additional Authors
         book.isbn || '', // ISBN
-        book.isbn13 || '', // ISBN13
+        book.isbn || '', // ISBN13
         rating, // My Rating
         '', // Average Rating
         book.publisher || '', // Publisher
         '', // Binding
-        book.pageCount || '', // Number of Pages
-        book.publishedDate ? new Date(book.publishedDate).getFullYear() : '', // Year Published
-        book.publishedDate ? new Date(book.publishedDate).getFullYear() : '', // Original Publication Year
+        book.pages || '', // Number of Pages
+        book.publicationYear || '', // Year Published
+        book.publicationYear || '', // Original Publication Year
         dateRead, // Date Read
         dateAdded, // Date Added
-        book.genres.join(', '), // Bookshelves
+        book.genres || '', // Bookshelves
         '', // Bookshelves with positions
         shelf, // Exclusive Shelf
         `"${(ub.review || '').replace(/"/g, '""')}"`, // My Review

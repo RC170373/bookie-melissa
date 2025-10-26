@@ -141,7 +141,7 @@ export async function POST(request: NextRequest) {
         ? ub.book.genres.split(',').map(g => g.trim()).filter(g => g)
         : ub.book.genres;
     }))];
-    const languagesRead = [...new Set(readBooks.map(ub => ub.book.language).filter(Boolean))];
+    const languagesRead = [...new Set(readBooks.map(ub => ub.book.language).filter((lang): lang is string => lang !== null))];
     const countriesRead: string[] = []; // Would need author nationality data
 
     // Calculate streak (same as above)
@@ -182,7 +182,7 @@ export async function POST(request: NextRequest) {
     const monthlyReads = readBooks.filter(ub => ub.dateRead && new Date(ub.dateRead) >= thirtyDaysAgo).length;
 
     const fastReads = readBooks.filter(ub => {
-      if (!ub.dateRead || !ub.book.pageCount || ub.book.pageCount < 300) return false;
+      if (!ub.dateRead || !ub.book.pages || ub.book.pages < 300) return false;
       const readDate = new Date(ub.dateRead);
       const addedDate = new Date(ub.createdAt);
       const daysDiff = (readDate.getTime() - addedDate.getTime()) / (1000 * 60 * 60 * 24);

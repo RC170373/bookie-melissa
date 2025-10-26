@@ -33,15 +33,18 @@ export async function GET(request: NextRequest) {
     });
 
     // Get user's challenges
-    const challenges = await prisma.challenge.findMany({
+    const challenges = await prisma.userChallenge.findMany({
       where: { userId: decoded.userId },
+      include: {
+        challenge: true,
+      },
     });
 
     // Get user's lists
     const lists = await prisma.list.findMany({
       where: { userId: decoded.userId },
       include: {
-        books: {
+        items: {
           include: {
             book: true,
           },
@@ -62,18 +65,15 @@ export async function GET(request: NextRequest) {
       books: userBooks.map(ub => ({
         book: {
           title: ub.book.title,
-          authors: ub.book.authors,
+          author: ub.book.author,
           isbn: ub.book.isbn,
-          isbn13: ub.book.isbn13,
           publisher: ub.book.publisher,
-          publishedDate: ub.book.publishedDate,
+          publicationYear: ub.book.publicationYear,
           description: ub.book.description,
-          pageCount: ub.book.pageCount,
-          categories: ub.book.categories,
+          pages: ub.book.pages,
           genres: ub.book.genres,
           language: ub.book.language,
-          thumbnail: ub.book.thumbnail,
-          googleBooksId: ub.book.googleBooksId,
+          coverUrl: ub.book.coverUrl,
         },
         userBook: {
           status: ub.status,
@@ -90,22 +90,22 @@ export async function GET(request: NextRequest) {
         },
       })),
       challenges: challenges.map(c => ({
-        name: c.name,
-        description: c.description,
-        targetBooks: c.targetBooks,
-        currentBooks: c.currentBooks,
-        startDate: c.startDate,
-        endDate: c.endDate,
+        name: c.challenge.name,
+        description: c.challenge.description,
+        type: c.challenge.type,
+        target: c.challenge.target,
+        progress: c.progress,
+        startDate: c.challenge.startDate,
+        endDate: c.challenge.endDate,
         completed: c.completed,
       })),
       lists: lists.map(l => ({
         name: l.name,
         description: l.description,
-        isPublic: l.isPublic,
         createdAt: l.createdAt,
-        books: l.books.map(lb => ({
-          title: lb.book.title,
-          authors: lb.book.authors,
+        books: l.items.map(item => ({
+          title: item.book.title,
+          author: item.book.author,
         })),
       })),
     };

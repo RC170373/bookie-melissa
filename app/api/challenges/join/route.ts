@@ -1,12 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
-import { getAuthToken } from '@/lib/auth'
+import { verifyToken } from '@/lib/auth'
 
 export async function POST(request: NextRequest) {
   try {
-    const token = getAuthToken(request)
-    if (!token) {
+    const tokenCookie = request.cookies.get('auth-token')
+    if (!tokenCookie) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const payload = verifyToken(tokenCookie.value)
+    if (!payload) {
+      return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
     }
 
     const { challengeId } = await request.json()
@@ -22,7 +27,7 @@ export async function POST(request: NextRequest) {
     const existing = await prisma.userChallenge.findUnique({
       where: {
         userId_challengeId: {
-          userId: token.userId,
+          userId: payload.userId,
           challengeId,
         },
       },
@@ -37,7 +42,7 @@ export async function POST(request: NextRequest) {
 
     const userChallenge = await prisma.userChallenge.create({
       data: {
-        userId: token.userId,
+        userId: payload.userId,
         challengeId,
         progress: 0,
         completed: false,

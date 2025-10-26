@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
-import { getAuthToken } from '@/lib/auth'
+import { verifyToken } from '@/lib/auth'
 
 export async function GET(request: NextRequest) {
   try {
-    const token = getAuthToken(request)
-
     const lists = await prisma.list.findMany({
       include: {
         user: {
@@ -31,10 +29,18 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const token = getAuthToken(request)
-    if (!token) {
+    const tokenCookie = request.cookies.get('auth-token')
+    if (!tokenCookie) {
       return NextResponse.json(
         { error: 'Unauthorized' },
+        { status: 401 }
+      )
+    }
+
+    const payload = verifyToken(tokenCookie.value)
+    if (!payload) {
+      return NextResponse.json(
+        { error: 'Invalid token' },
         { status: 401 }
       )
     }
@@ -52,7 +58,7 @@ export async function POST(request: NextRequest) {
       data: {
         name,
         description,
-        userId: token.userId,
+        userId: payload.userId,
       },
       include: {
         user: {

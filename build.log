@@ -1,0 +1,33 @@
+
+> bookie-app@1.0.0 build
+> next build
+
+ ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/clairinraphael/Documents/augment-projects/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/clairinraphael/Documents/augment-projects/Livraddict/package-lock.json
+
+   ▲ Next.js 16.0.0 (Turbopack)
+   - Environments: .env.local, .env
+   - Experiments (use with caution):
+     · serverActions
+
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 2.3s
+   Running TypeScript ...
+Failed to compile.
+
+./app/api/achievements/route.ts:2:24
+Type error: Could not find a declaration file for module 'jsonwebtoken'. '/Users/clairinraphael/Documents/augment-projects/Livraddict/node_modules/jsonwebtoken/index.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/jsonwebtoken` if it exists or add a new declaration (.d.ts) file containing `declare module 'jsonwebtoken';`
+
+[0m [90m 1 |[39m [36mimport[39m { [33mNextRequest[39m[33m,[39m [33mNextResponse[39m } [36mfrom[39m [32m'next/server'[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m { verify } [36mfrom[39m [32m'jsonwebtoken'[39m[33m;[39m
+ [90m   |[39m                        [31m[1m^[22m[39m
+ [90m 3 |[39m [36mimport[39m { prisma } [36mfrom[39m [32m'@/lib/prisma'[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { checkAchievements[33m,[39m calculateUserLevel } [36mfrom[39m [32m'@/lib/achievements'[39m[33m;[39m
+ [90m 5 |[39m[0m
+Next.js build worker exited with code: 1 and signal: null
