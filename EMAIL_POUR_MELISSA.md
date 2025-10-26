@@ -27,7 +27,7 @@ C'est très simple, il y a 4 étapes:
 1. Va sur ce lien: **https://nodejs.org/**
 2. Clique sur le gros bouton vert **"Download Node.js (LTS)"**
 3. Une fois téléchargé, double-clique sur le fichier et suis l'installation
-4. Redémarre ton PC
+4. **REDÉMARRE TON PC** (très important!)
 
 ---
 
@@ -40,25 +40,17 @@ C'est très simple, il y a 4 étapes:
 
 ---
 
-### **Étape 3: Créer les fichiers d'installation** (30 secondes)
+### **Étape 3: Installer Bookie** (3 minutes)
 
 1. Ouvre le dossier où tu as extrait Bookie (par exemple: `C:\Bookie\bookie-melissa-main`)
-2. Double-clique sur le fichier **`CREER-FICHIERS-WINDOWS.bat`**
-3. Une fenêtre noire s'ouvre et crée les fichiers automatiquement
-4. Appuie sur une touche pour fermer la fenêtre
+2. Double-clique sur le fichier **`INSTALLER.bat`**
+3. Une fenêtre noire s'ouvre et installe tout automatiquement
+4. **ATTENDS 2-3 MINUTES** (c'est normal que ça prenne du temps!)
+5. Quand tu vois "Installation terminée!", appuie sur une touche pour fermer
 
 ---
 
-### **Étape 4: Installer Bookie** (3 minutes)
-
-1. Dans le même dossier, double-clique sur le fichier **`INSTALLER.bat`** (qui vient d'être créé)
-2. Une fenêtre noire s'ouvre et installe tout automatiquement
-3. **ATTENDS 2-3 MINUTES** (c'est normal que ça prenne du temps!)
-4. Quand tu vois "Installation terminée!", tu peux fermer la fenêtre
-
----
-
-### **Étape 5: Lancer Bookie** (30 secondes)
+### **Étape 4: Lancer Bookie** (30 secondes)
 
 1. Dans le même dossier, double-clique sur **`LANCER-BOOKIE.bat`**
 2. Une fenêtre noire s'ouvre (**ne la ferme pas!**)

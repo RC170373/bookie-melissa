@@ -26,26 +26,17 @@ Bonjour Melissa! Voici comment installer Bookie sur ton PC Windows.
 
 ---
 
-## ✅ Étape 3: Créer les fichiers d'installation
+## ✅ Étape 3: Installer Bookie
 
 1. Ouvre le dossier où tu as extrait Bookie (par exemple: `C:\Bookie\bookie-melissa-main`)
-2. Double-clique sur le fichier **`CREER-FICHIERS-WINDOWS.bat`**
-3. Une fenêtre s'ouvre et crée les fichiers automatiquement
-4. Tu devrais voir "✅ FICHIERS CRÉÉS!"
-5. Appuie sur une touche pour fermer la fenêtre
+2. Double-clique sur le fichier **`INSTALLER.bat`**
+3. Une fenêtre noire s'ouvre et installe tout automatiquement
+4. **ATTENDS 2-3 MINUTES** (c'est normal que ça prenne du temps!)
+5. Quand tu vois "Installation terminée!", appuie sur une touche pour fermer
 
 ---
 
-## ✅ Étape 4: Installer Bookie
-
-1. Dans le même dossier, double-clique sur le fichier **`INSTALLER.bat`** (qui vient d'être créé)
-2. Une fenêtre noire s'ouvre et installe tout automatiquement
-3. **ATTENDS 2-3 MINUTES** (c'est normal que ça prenne du temps!)
-4. Quand tu vois "Installation terminée!", tu peux fermer la fenêtre
-
----
-
-## ✅ Étape 5: Lancer Bookie
+## ✅ Étape 4: Lancer Bookie
 
 1. Dans le même dossier, double-clique sur **`LANCER-BOOKIE.bat`**
 2. Une fenêtre noire s'ouvre (ne la ferme pas!)
