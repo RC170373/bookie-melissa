@@ -1,12 +1,58 @@
 {
   "name": "bookie-app",
   "version": "1.0.0",
+  "description": "Bookie - Votre bibliothèque personnelle",
+  "main": "electron/main.js",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
-    "postinstall": "prisma generate"
+    "start": "node server.js",
+    "postinstall": "prisma generate",
+    "electron": "electron .",
+    "electron:build": "npm run build && electron-builder",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.bookie.app",
+    "productName": "Bookie",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      ".next/**/*",
+      "public/**/*",
+      "prisma/**/*",
+      "server.js",
+      "package.json",
+      "next.config.js",
+      ".env"
+    ],
+    "extraResources": [
+      {
+        "from": ".",
+        "to": "app",
+        "filter": [
+          "**/*",
+          "!node_modules",
+          "!dist",
+          "!.git"
+        ]
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "electron/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   },
   "dependencies": {
     "@prisma/client": "^6.18.0",
@@ -18,6 +64,7 @@
     "better-sqlite3": "^12.4.1",
     "chart.js": "^4.5.1",
     "date-fns": "^4.1.0",
+    "electron-squirrel-startup": "^1.0.1",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.548.0",
     "next": "16.0.0",
@@ -33,6 +80,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
